@@ -1,0 +1,17 @@
+{
+  "name": "@repo/constants",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": [
+      "./src/index.ts"
+    ]
+  },
+  "module": "src/index.ts",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
