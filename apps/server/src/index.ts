@@ -6,23 +6,10 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 
 import type { env } from "./libs/env";
+import { auth } from "./libs/auth";
 import { appRouter, createTRPCContext } from "./libs/trpc";
 
-const authPromise = import("./libs/auth.js").then((mod) => mod.auth);
-
-export const trpc = trpcServer({
-  router: appRouter,
-  createContext: async (_, c) => {
-    const headers = c.req.raw.headers;
-    return createTRPCContext({
-      headers,
-      authData: await (await authPromise).api.getSession({ headers }),
-    });
-  },
-  onError: ({ path, error }) => {
-    console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`);
-  },
-});
+// const authPromise = import("./libs/auth.js").then((mod) => mod.auth);
 
 const app = new Hono<{ Bindings: typeof env }>({ strict: false });
 
@@ -49,10 +36,26 @@ app.use(
 
 app.get("/test", (c) => c.text("OK"));
 
-app.use("/v0.1/*", trpc);
+app.use(
+  "/v0.1/*",
+  trpcServer({
+    router: appRouter,
+    createContext: async (_, c) => {
+      const headers = c.req.raw.headers;
+      return createTRPCContext({
+        headers,
+        authData: await auth.api.getSession({ headers }),
+      });
+    },
+    onError: ({ path, error }) => {
+      console.error(
+        `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
+      );
+    },
+  }),
+);
 
 app.on(["POST", "GET"], "/auth/*", async (c) => {
-  const auth = await authPromise;
   return auth.handler(c.req.raw);
 });
 
