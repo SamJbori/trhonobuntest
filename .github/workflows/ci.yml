@@ -32,7 +32,7 @@ jobs:
         run: cp .env.example .env
 
       - name: Lint
-        run: bun install && bun build && bun lint && bun lint:ws
+        run: bun install && bun run build && bun lint && bun lint:ws
 
   format:
     runs-on: ubuntu-latest
