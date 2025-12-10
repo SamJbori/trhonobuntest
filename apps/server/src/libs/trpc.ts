@@ -5,9 +5,7 @@ import z, { ZodError } from "zod/v4";
 
 import type { AuthData } from "./auth";
 import { postRouter } from "../routers/posts";
-import { collection, fromDBToRecord, fromDBToRecords } from "./db";
 import { env } from "./env";
-import { storage } from "./s3";
 
 export const createTRPCContext = ({
   headers,
@@ -18,10 +16,6 @@ export const createTRPCContext = ({
 }) => {
   return {
     user: authData?.user,
-    collection,
-    storage,
-    fromDBToRecord,
-    fromDBToRecords,
     headers,
     // resHeaders,
   };

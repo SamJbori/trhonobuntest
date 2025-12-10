@@ -1,8 +1,5 @@
-import type { DBCollections, DBCollectionsTypes } from "@repo/validators/db";
 import type { MongoClientOptions } from "mongodb";
 import { MongoClient, ObjectId } from "mongodb";
-
-import { DBCollectionStore } from "@repo/validators/db";
 
 import { env } from "./env";
 
@@ -35,28 +32,3 @@ if (env.NODE_ENV === "development") {
 }
 
 export const dbClient = await clientPromise; // ⬅️ Await the shared client
-
-export const collection = <T extends DBCollections>(collection: T) => {
-  /**
-   * Based on the collection, direct the collection to use the correct db
-   */
-  const db = dbClient.db(DBCollectionStore[collection]);
-
-  return db.collection<Omit<DBCollectionsTypes[T], "id">>(collection);
-};
-
-export const fromDBToRecord = <T extends { _id: ObjectId }>(
-  doc: T,
-): Omit<T, "_id"> & { id: string } => {
-  const { _id, ...rest } = doc;
-  return {
-    ...rest,
-    id: _id.toString(),
-  };
-};
-
-export const fromDBToRecords = <T extends { _id: ObjectId }>(
-  docs: T[],
-): (Omit<T, "_id"> & { id: string })[] => {
-  return docs.map(fromDBToRecord);
-};

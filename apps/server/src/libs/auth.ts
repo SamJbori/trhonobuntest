@@ -3,12 +3,10 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { betterAuth } from "better-auth/minimal";
 import { anonymous, captcha, phoneNumber } from "better-auth/plugins";
 
-import { dbNames } from "@repo/validators/db";
-
 import { dbClient } from "./db";
 import { env } from "./env";
 
-const authStore = dbClient.db(dbNames.auth);
+const authStore = dbClient.db("auth");
 
 const authConfig = {
   database: mongodbAdapter(authStore),
@@ -30,10 +28,7 @@ const authConfig = {
   trustedOrigins: (request) => {
     // Return an array of trusted origins based on the request
     const origin = request.headers.get("origin");
-    if (
-      origin?.endsWith("myrepo.com") ||
-      origin?.includes("dev.myrepo.com:3")
-    ) {
+    if (origin?.endsWith("myrepo.com") || origin?.includes("dev.myrepo.com:3")) {
       return [origin];
     }
     return [];
