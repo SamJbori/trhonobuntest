@@ -24,7 +24,7 @@
         "@repo/prettier": "workspace:*",
         "@types/bun": "latest",
         "@types/node": "^22",
-        "typescript": "^5.9.2",
+        "typescript": "5.9.2",
       },
     },
     "apps/web": {
@@ -47,7 +47,7 @@
         "@types/react-dom": "^19",
         "prettier-plugin-tailwindcss": "^0.7.2",
         "tailwindcss": "^4",
-        "typescript": "^5.9.2",
+        "typescript": "5.9.2",
       },
     },
     "packages/constants": {
@@ -78,16 +78,19 @@
         "eslint-plugin-react-hooks": "^7.0.1",
         "eslint-plugin-turbo": "^2.6.3",
         "globals": "^16.5.0",
-        "typescript": "^5.9.2",
+        "typescript": "5.9.2",
         "typescript-eslint": "^8.49.0",
       },
+    },
+    "tooling/github": {
+      "name": "@repo/github",
     },
     "tooling/prettier": {
       "name": "@repo/prettier",
       "version": "0.0.0",
       "dependencies": {
         "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
-        "prettier": "3.7.4",
+        "prettier": "^3.7.4",
         "prettier-plugin-tailwindcss": "^0.7.2",
       },
       "devDependencies": {
@@ -277,6 +280,8 @@
     "@repo/constants": ["@repo/constants@workspace:packages/constants"],
 
     "@repo/eslint": ["@repo/eslint@workspace:tooling/eslint"],
+
+    "@repo/github": ["@repo/github@workspace:tooling/github"],
 
     "@repo/prettier": ["@repo/prettier@workspace:tooling/prettier"],
 
