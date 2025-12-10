@@ -1,6 +1,6 @@
 import type { IPost } from "@repo/validators/post";
 
-import { createTRPCRouter, publicProcedure } from "../libs/trpc";
+import { publicProcedure } from "../libs/trpc";
 
 export const postRouter = (x: typeof publicProcedure) => ({
   getPost: x.query(
