@@ -1,8 +1,10 @@
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import z, { ZodError } from "zod/v4";
 
 import type { AuthData } from "./auth";
+import { postRouter } from "../routers/posts";
 import { auth } from "./auth";
 import { collection, fromDBToRecord, fromDBToRecords } from "./db";
 import { env } from "./env";
@@ -122,3 +124,26 @@ export const adminProcedure = publicProcedure.use(({ ctx, next }) => {
     },
   });
 });
+
+export const appRouter = createTRPCRouter({
+  post: postRouter(publicProcedure),
+});
+
+// export type definition of API
+export type AppRouter = typeof appRouter;
+
+/**
+ * Inference helpers for input types
+ * @example
+ * type PostByIdInput = RouterInputs['post']['byId']
+ *      ^? { id: number }
+ **/
+export type RouterInputs = inferRouterInputs<AppRouter>;
+
+/**
+ * Inference helpers for output types
+ * @example
+ * type AllPostsOutput = RouterOutputs['post']['all']
+ *      ^? Post[]
+ **/
+export type RouterOutputs = inferRouterOutputs<AppRouter>;

@@ -4,9 +4,10 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 
 import type { env } from "./libs/env.js";
-import { appRouter } from "./routers/routers.js";
 
 import "bun";
+
+import { appRouter } from "./libs/trpc.js";
 
 const authPromise = import("./libs/auth.js").then((mod) => mod.auth);
 const ctrpcCtxPromise = import("./libs/trpc.js").then(
