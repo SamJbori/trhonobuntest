@@ -1,0 +1,14 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "i18n-ally.localesPaths": ["apps/web/locales"],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.keystyle": "nested",
+  "files.associations": {
+    "wrangler.json": "jsonc"
+  },
+  "prettier.prettierPath": "node_modules/prettier"
+}

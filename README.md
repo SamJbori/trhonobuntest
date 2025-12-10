@@ -1,5 +1,7 @@
 # Turborepo starter
 
+1. Prettier split to remove the need to import tailwincss prittier in all packages
+
 This Turborepo starter is maintained by the Turborepo core team.
 
 ## Using this example
