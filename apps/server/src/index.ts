@@ -9,8 +9,6 @@ import type { env } from "./libs/env";
 import { auth } from "./libs/auth";
 import { appRouter, createTRPCContext } from "./libs/trpc";
 
-// const authPromise = import("./libs/auth.js").then((mod) => mod.auth);
-
 const app = new Hono<{ Bindings: typeof env }>({ strict: false });
 
 app.use(logger());
@@ -31,7 +29,7 @@ app.use(
     exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
     maxAge: 86_400,
     credentials: true,
-  }),
+  })
 );
 
 app.get("/test", (c) => c.text("OK"));
@@ -49,10 +47,10 @@ app.use(
     },
     onError: ({ path, error }) => {
       console.error(
-        `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
+        `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`
       );
     },
-  }),
+  })
 );
 
 app.on(["POST", "GET"], "/auth/*", async (c) => {
