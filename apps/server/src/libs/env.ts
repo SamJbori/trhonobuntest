@@ -1,9 +1,11 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod/v4";
 
-import { apiSchema } from "@repo/api";
-
-const appSchema = { ...apiSchema };
+const appSchema = {
+  MONGODB_URI: z.url(),
+  CLOUDFLARE_TURNSTILE_SECRET_KEY: z.string().min(6),
+  SERVER_TOKEN: z.string().min(32),
+};
 
 export const env = createEnv({
   shared: {
@@ -11,7 +13,7 @@ export const env = createEnv({
       .enum(["development", "production", "test"])
       .default("development"),
   },
-  server: apiSchema.shape, // ← convert merged Zod object to shape for createEnv
+  server: appSchema, // ← convert merged Zod object to shape for createEnv
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
   skipValidation: false,

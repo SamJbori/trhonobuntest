@@ -1,19 +1,28 @@
+import { trpcServer } from "@hono/trpc-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 
+import type { env } from "./libs/env.js";
+import { auth } from "./libs/auth.js";
+import { createTRPCContext } from "./libs/trpc.js";
+import { appRouter } from "./routers/routers.js";
+
 import "bun";
 
-import type { Auth } from "@repo/api";
-
-import type { env } from "./env.js";
-import { trpc } from "./libs/trpc.js";
+export const trpc = trpcServer({
+  router: appRouter,
+  createContext: (_, c) => {
+    return createTRPCContext({
+      headers: c.req.raw.headers,
+    });
+  },
+  onError: ({ path, error }) => {
+    console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`);
+  },
+});
 
 const app = new Hono<{ Bindings: typeof env }>({ strict: false });
-
-// Lazy load auth to avoid TDZ/circular init issues when the bundle is hydrated on Vercel
-// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-const authPromise = import("@repo/api").then((mod) => mod.auth as Auth);
 
 app.use(logger());
 
@@ -37,13 +46,10 @@ app.use(
 );
 
 app.get("/test", (c) => c.text("OK"));
+
 app.use("/v0.1/*", trpc);
 
 app.on(["POST", "GET"], "/auth/*", async (c) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const auth = await authPromise;
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   return auth.handler(c.req.raw);
 });
 
