@@ -4,11 +4,12 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 
 import type { env } from "./libs/env.js";
-import { auth } from "./libs/auth.js";
 import { createTRPCContext } from "./libs/trpc.js";
 import { appRouter } from "./routers/routers.js";
 
 import "bun";
+
+const authPromise = import("./libs/auth.js").then((mod) => mod.auth);
 
 export const trpc = trpcServer({
   router: appRouter,
@@ -50,6 +51,7 @@ app.get("/test", (c) => c.text("OK"));
 app.use("/v0.1/*", trpc);
 
 app.on(["POST", "GET"], "/auth/*", async (c) => {
+  const auth = await authPromise;
   return auth.handler(c.req.raw);
 });
 
