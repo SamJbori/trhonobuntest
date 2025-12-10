@@ -1,17 +1,19 @@
 import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod/v4";
 
+export const apiSchema = {
+  MONGODB_URI: z.url(),
+  CLOUDFLARE_TURNSTILE_SECRET_KEY: z.string().min(6),
+  SERVER_TOKEN: z.string().min(32),
+};
+
 export const env = createEnv({
   shared: {
     NODE_ENV: z
       .enum(["development", "production", "test"])
       .default("development"),
   },
-  server: {
-    MONGODB_URI: z.url(),
-    CLOUDFLARE_TURNSTILE_SECRET_KEY: z.string().min(6),
-    SERVER_TOKEN: z.string().min(32),
-  },
+  server: apiSchema,
   /**
    * What object holds the environment variables at runtime. This is usually
    * `Bun.env` or `process.env` or `import.meta.env`.

@@ -10,19 +10,9 @@ import { storage } from "./s3";
 
 export const createTRPCContext = async ({
   headers,
-  input,
-  activeStoreId,
-  activeStoreHsc,
-  setCookie,
   // resHeaders,
 }: {
   headers: Headers;
-  input: unknown;
-  activeStoreId: string | undefined | false;
-  activeStoreHsc: string | undefined | false;
-  setCookie: (name: string, value: string) => Promise<void>;
-
-  // resHeaders: Headers;
 }) => {
   const session = (await auth.api.getSession({ headers })) as AuthData;
 
@@ -32,12 +22,8 @@ export const createTRPCContext = async ({
     storage,
     fromDBToRecord,
     fromDBToRecords,
-    setCookie,
     headers,
-    activeStoreId,
-    activeStoreHsc,
     // resHeaders,
-    input,
   };
 };
 

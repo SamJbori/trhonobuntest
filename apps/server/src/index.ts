@@ -1,21 +1,41 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { logger } from "hono/logger";
 
 import "bun";
 
-import { env } from "./env.js";
+import { auth } from "@repo/api";
 
-const app = new Hono();
+import type { env } from "./env.js";
+import { trpc } from "./libs/trpc.js";
 
-const x2 = 2;
-const welcomeStrings = [
-  "Hello Hono!",
-  "To learn more about Hono on Vercel, visit https://vercel.com/docs/frameworks/backend/hono",
-  ...Object.values(env),
-];
+const app = new Hono<{ Bindings: typeof env }>();
 
-app.get("/", (c) => {
-  const l = 2;
-  return c.text(welcomeStrings.join("\n\n"));
+app.use(logger());
+
+app.use(
+  "/*",
+  cors({
+    origin: (o) => o,
+    allowHeaders: [
+      "Content-Type",
+      "Authorization",
+      "x-trpc-source",
+      "trpc-accept",
+      "x-captcha-response",
+      "x-hamem-cache",
+    ],
+    allowMethods: ["POST", "GET", "OPTIONS"],
+    exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
+    maxAge: 86_400,
+    credentials: true,
+  }),
+);
+
+app.use("/v0.1/*", trpc);
+
+app.on(["POST", "GET"], "/auth/*", (c) => {
+  return auth.handler(c.req.raw);
 });
 
 export default app;

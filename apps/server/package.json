@@ -2,16 +2,19 @@
   "name": "@repo/server",
   "type": "module",
   "scripts": {
-    "dev": "bun run --bun --port=3001 --hot src/index.ts",
+    "dev": "bun run --bun --env-file=../../.env --port=3001 --hot src/index.ts",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "start": "bun run src/index.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@hono/trpc-server": "^0.4.1",
     "@repo/api": "workspace:*",
-    "@repo/validators": "workspace:*",
+    "@t3-oss/env-core": "^0.13.8",
     "bun": "latest",
-    "hono": "^4.10.8"
+    "hono": "^4.10.8",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",

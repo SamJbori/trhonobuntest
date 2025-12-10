@@ -6,4 +6,4 @@ export type { AppRouter, RouterInputs, RouterOutputs } from "./routers/routers";
 export { auth } from "./libs/auth";
 export type { Auth, Session, User, AuthData } from "./libs/auth";
 
-export { env } from "./libs/env";
+export { apiSchema } from "./libs/env";
