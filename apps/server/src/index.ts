@@ -7,7 +7,8 @@ import "bun";
 import { auth } from "@repo/api";
 
 import type { env } from "./env.js";
-import { trpc } from "./libs/trpc.js";
+
+// import { trpc } from "./libs/trpc.js";
 
 const app = new Hono<{ Bindings: typeof env }>();
 
@@ -32,7 +33,7 @@ app.use(
   }),
 );
 
-app.use("/v0.1/*", trpc);
+// app.use("/v0.1/*", trpc);
 
 app.on(["POST", "GET"], "/auth/*", (c) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
