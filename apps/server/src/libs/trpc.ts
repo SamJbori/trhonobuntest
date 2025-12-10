@@ -3,12 +3,12 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import z, { ZodError } from "zod/v4";
 
-import type { AuthData } from "./auth";
-import { postRouter } from "../routers/posts";
-import { auth } from "./auth";
-import { collection, fromDBToRecord, fromDBToRecords } from "./db";
-import { env } from "./env";
-import { storage } from "./s3";
+import type { AuthData } from "./auth.js";
+import { postRouter } from "../routers/posts.js";
+import { auth } from "./auth.js";
+import { collection, fromDBToRecord, fromDBToRecords } from "./db.js";
+import { env } from "./env.js";
+import { storage } from "./s3.js";
 
 export const createTRPCContext = async ({
   headers,

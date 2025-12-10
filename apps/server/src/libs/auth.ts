@@ -5,8 +5,8 @@ import { anonymous, captcha, phoneNumber } from "better-auth/plugins";
 
 import { dbNames } from "@repo/validators/db";
 
-import { dbClient } from "./db";
-import { env } from "./env";
+import { dbClient } from "./db.js";
+import { env } from "./env.js";
 
 const authStore = dbClient.db(dbNames.auth);
 

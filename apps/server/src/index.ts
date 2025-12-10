@@ -7,17 +7,12 @@ import type { env } from "./libs/env.js";
 
 import "bun";
 
-import { appRouter } from "./libs/trpc.js";
-
-const authPromise = import("./libs/auth.js").then((mod) => mod.auth);
-const ctrpcCtxPromise = import("./libs/trpc.js").then(
-  (mod) => mod.createTRPCContext,
-);
+import { auth } from "./libs/auth.js";
+import { appRouter, createTRPCContext } from "./libs/trpc.js";
 
 export const trpc = trpcServer({
   router: appRouter,
   createContext: async (_, c) => {
-    const createTRPCContext = await ctrpcCtxPromise;
     return createTRPCContext({
       headers: c.req.raw.headers,
     });
@@ -55,7 +50,6 @@ app.get("/test", (c) => c.text("OK"));
 app.use("/v0.1/*", trpc);
 
 app.on(["POST", "GET"], "/auth/*", async (c) => {
-  const auth = await authPromise;
   return auth.handler(c.req.raw);
 });
 

@@ -4,7 +4,7 @@ import { MongoClient, ObjectId } from "mongodb";
 
 import { DBCollectionStore } from "@repo/validators/db";
 
-import { env } from "./env";
+import { env } from "./env.js";
 
 declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
