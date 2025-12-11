@@ -1,8 +1,10 @@
 import type { BetterAuthOptions, InferSession, InferUser } from "better-auth";
-import type { Db } from "mongodb";
+import type { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { betterAuth } from "better-auth/minimal";
 import { anonymous, captcha, phoneNumber } from "better-auth/plugins";
+
+import { dbNames } from "@repo/validators/db";
 
 import { env } from "./env";
 
@@ -106,9 +108,10 @@ const authConfig = {
   },
 } satisfies BetterAuthOptions;
 
-export const initAuth = (db: Db) =>
-  betterAuth({ ...authConfig, database: mongodbAdapter(db) });
-
+export const initAuth = (dbClient: MongoClient) => {
+  const db = dbClient.db(dbNames.auth);
+  return betterAuth({ ...authConfig, database: mongodbAdapter(db) });
+};
 export type Auth = ReturnType<typeof initAuth>;
 export type Session = InferSession<Auth>;
 export type User = InferUser<Auth>;

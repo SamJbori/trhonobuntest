@@ -49,7 +49,7 @@ const middleware = createMiddleware<{
   };
 }>(async (c, next) => {
   const DBClient = await getDBClientPromise();
-  const auth = initAuth(DBClient.db("auth"));
+  const auth = initAuth(DBClient);
   c.set("auth", auth);
   c.set("dbClient", DBClient);
   await next();
