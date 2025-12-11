@@ -4,22 +4,13 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./db": {
-      "import": "./dist/db.js",
-      "types": "./dist/db.d.ts"
-    },
-    "./post": {
-      "import": "./dist/post.js",
-      "types": "./dist/post.d.ts"
-    }
+    "./db": "./src/db.ts",
+    "./post": "./src/post.ts"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
     "exports": "bun run exportupdate.ts",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "dev": "tsc -p tsconfig.build.json --watch",
