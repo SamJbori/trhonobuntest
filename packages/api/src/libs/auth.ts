@@ -22,13 +22,14 @@ export const initAuth = (dbClient: MongoClient) => {
       useSecureCookies: true,
       crossSubDomainCookies: {
         enabled: true,
-        domain: env.NODE_ENV === "development" ? undefined : "t3bun.vercel.app", // Domain with a leading period
+        domain:
+          env.NODE_ENV === "development" ? undefined : ".t3bun.vercel.app", // Domain with a leading period
       },
       defaultCookieAttributes: {
         secure: true,
         httpOnly: true,
         sameSite: "none", // Allows CORS-based cookie sharing across subdomains
-        // partitioned: true, // New browser standards will mandate this for foreign cookies
+        partitioned: true, // New browser standards will mandate this for foreign cookies
       },
     },
     trustedOrigins: (request) => {

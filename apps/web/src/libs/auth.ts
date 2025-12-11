@@ -15,6 +15,9 @@ export const authClient = createAuthClient({
     anonymousClient(),
     phoneNumberClient(),
   ],
+  fetchOptions: {
+    credentials: "include",
+  },
 });
 
 export default authClient;
