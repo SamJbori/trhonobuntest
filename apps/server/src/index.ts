@@ -1,14 +1,15 @@
 import "bun";
 
-import { Hono } from "hono";
-
-import { env } from "./libs/env";
-import { initAuth, type Auth, appRouter, createTRPCContext } from "@repo/api";
-import { MongoClient } from "mongodb";
+import type { Auth } from "@repo/api";
 import { trpcServer } from "@hono/trpc-server";
+import { env } from "~libs/env";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { createMiddleware } from "hono/factory";
 import { logger } from "hono/logger";
-import { cors } from "hono/cors";
+import { MongoClient } from "mongodb";
+
+import { appRouter, createTRPCContext, initAuth } from "@repo/api";
 
 let DBClientPromise: Promise<MongoClient> | undefined;
 
@@ -31,13 +32,12 @@ app.use(
       "x-trpc-source",
       "trpc-accept",
       "x-captcha-response",
-      "x-hamem-cache",
     ],
     allowMethods: ["POST", "GET", "OPTIONS"],
     exposeHeaders: ["Content-Length", "X-Kuma-Revision"],
     maxAge: 86_400,
     credentials: true,
-  })
+  }),
 );
 
 const middleware = createMiddleware<{
@@ -47,7 +47,7 @@ const middleware = createMiddleware<{
   };
 }>(async (c, next) => {
   const DBClient = await getDBClientPromise();
-  const auth = initAuth(DBClient.db("auth"));
+  const auth = initAuth(DBClient);
   c.set("auth", auth);
   c.set("dbClient", DBClient);
   await next();
@@ -67,7 +67,7 @@ app.use("/v0.1/*", middleware, async (c, n) => {
     },
     onError: ({ path, error }) => {
       console.error(
-        `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`
+        `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
       );
     },
   });

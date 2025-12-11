@@ -2,9 +2,10 @@ import { createEnv } from "@t3-oss/env-core";
 import { z } from "zod/v4";
 
 export const apiSchema = {
-  MONGODB_URI: z.url(),
   CLOUDFLARE_TURNSTILE_SECRET_KEY: z.string().min(6),
   SERVER_TOKEN: z.string().min(32),
+  BETTER_AUTH_SECRET: z.string().min(6),
+  BETTER_AUTH_URL: z.url(),
 };
 
 export const env = createEnv({

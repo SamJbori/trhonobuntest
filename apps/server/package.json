@@ -2,7 +2,10 @@
   "name": "@repo/server",
   "type": "module",
   "scripts": {
-    "dev": "bun run --hot --env-file=../../.env --port=3006 src/index.ts "
+    "dev": "bun run --hot --env-file=../../.env --port=3006 src/index.ts ",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint --flag unstable_native_nodejs_ts_config",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hono/trpc-server": "^0.4.1",
@@ -18,9 +21,10 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@repo/eslint": "workspace:*",
     "@repo/prettier": "workspace:*",
-    "@types/bun":"latest",
+    "@types/bun": "latest",
     "@types/node": "^22",
     "tsx": "^4.7.1",
     "typescript": "5.9.2"
