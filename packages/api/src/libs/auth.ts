@@ -1,19 +1,12 @@
-import type { DBCollections } from "@repo/validators/db";
 import type { BetterAuthOptions, InferSession, InferUser } from "better-auth";
-import type { MongoClient } from "mongodb";
+import type { Db } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { betterAuth } from "better-auth/minimal";
 import { anonymous, captcha, phoneNumber } from "better-auth/plugins";
 
-import { dbNames } from "@repo/validators/db";
-
-import { dbCollection } from "./db";
 import { env } from "./env";
 
-const authConfig = (dbClient: MongoClient) => {
-  const collection = (collectionName: DBCollections) =>
-    dbCollection(dbClient, collectionName);
-  const db = dbClient.db(dbNames.auth);
+const authConfig = (db: Db) => {
   const config = {
     database: mongodbAdapter(db),
     basePath: "/auth",
@@ -67,7 +60,6 @@ const authConfig = (dbClient: MongoClient) => {
           console.log("AnonymousUser: ", anonymousUser.user.id);
           console.log("NewUser: ", newUser.user.id);
           // do something, like change cart ownership, or likes
-          void collection("Posts").findOne();
         },
       }),
       phoneNumber({
@@ -114,8 +106,7 @@ const authConfig = (dbClient: MongoClient) => {
   return config;
 };
 
-export const initAuth = (dbClient: MongoClient) =>
-  betterAuth({ ...authConfig(dbClient) });
+export const initAuth = (db: Db) => betterAuth({ ...authConfig(db) });
 
 export type Auth = ReturnType<typeof initAuth>;
 export type Session = InferSession<Auth>;
