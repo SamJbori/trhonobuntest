@@ -19,6 +19,10 @@
       }
     ],
     "paths": {
+      "@libs/*": ["./src/libs/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@c/*": ["./src/componsnts/*"],
       "@/*": ["./*"]
     }
   },

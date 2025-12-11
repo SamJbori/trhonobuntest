@@ -23,19 +23,14 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
-    NEXT_PUBLIC_BLOB_URL: z.url(),
     NEXT_PUBLIC_API_URL: z.url(),
-    NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY: z.string().min(1),
   },
   /**
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_BLOB_URL: process.env.NEXT_PUBLIC_BLOB_URL,
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY:
-      process.env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY,
     SERVER_TOKEN: process.env.SERVER_TOKEN,
   },
   skipValidation:

@@ -22,7 +22,7 @@ export const initAuth = (dbClient: MongoClient) => {
       useSecureCookies: true,
       crossSubDomainCookies: {
         enabled: true,
-        domain: ".myrepo.com", // Domain with a leading period
+        // domain: "localhost:3000", // Domain with a leading period
       },
       defaultCookieAttributes: {
         secure: true,
@@ -34,13 +34,8 @@ export const initAuth = (dbClient: MongoClient) => {
     trustedOrigins: (request) => {
       // Return an array of trusted origins based on the request
       const origin = request.headers.get("origin");
-      if (
-        origin?.endsWith("myrepo.com") ||
-        origin?.includes("dev.myrepo.com:3")
-      ) {
-        return [origin];
-      }
-      return [];
+
+      return [origin ?? ""];
     },
     user: {
       additionalFields: {

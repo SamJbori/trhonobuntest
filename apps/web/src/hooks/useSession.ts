@@ -1,4 +1,4 @@
-import { authClient } from "../libs/auth";
+import { authClient } from "@libs/auth";
 
 const useSession = () => {
   const { data, ...rest } = authClient.useSession();

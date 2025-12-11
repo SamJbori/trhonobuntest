@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
-
-import authClient from "../libs/auth";
-import { isBotCheck } from "../utils/isbotcheck";
+import authClient from "@libs/auth";
+import { isBotCheck } from "@utils/isbotcheck";
 
 const useAnonymousLogin = () => {
   const { data: authData, isPending } = authClient.useSession();
