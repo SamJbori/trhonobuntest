@@ -9,7 +9,6 @@ import type { AuthData } from "./auth";
 import { postRouter } from "../routers/posts";
 import { dbCollection, fromDBToMany, fromDBToSingle } from "./db";
 import { env } from "./env";
-import { storage } from "./s3";
 
 export const createTRPCContext = ({
   headers,
@@ -29,7 +28,6 @@ export const createTRPCContext = ({
     collection,
     fromDBToSingle,
     fromDBToMany,
-    storage,
   };
 };
 
