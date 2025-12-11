@@ -119,7 +119,7 @@ const adminProcedure = publicProcedure.use(({ ctx, next }) => {
  * Coming from server
  */
 const serverProcedure = publicProcedure.use(async ({ ctx, next }) => {
-  const headerToken = ctx.headers.get("X-Hamem-Token");
+  const headerToken = ctx.headers.get("X-Server-Token");
   if (!headerToken) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }

@@ -11,10 +11,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "@tanstack/query-core": "^5.90.12",
+    "@tanstack/react-query": "^5.90.12",
+    "@trpc/client": "^11.7.2",
+    "@trpc/react-query": "^11.7.2",
+    "better-auth": "^1.4.6",
     "bun": "latest",
     "next": "16.0.8",
     "react": "19.2.1",
-    "react-dom": "19.2.1"
+    "react-dom": "19.2.1",
+    "server-only": "^0.0.1",
+    "superjson": "^2.2.6",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
@@ -22,6 +31,7 @@
     "@repo/eslint": "workspace:*",
     "@repo/prettier": "workspace:*",
     "@tailwindcss/postcss": "^4",
+    "@tanstack/react-query-devtools": "^5.91.1",
     "@types/bun": "latest",
     "@types/node": "^22",
     "@types/react": "^19",
