@@ -1,5 +1,5 @@
 {
-  "name": "trhonobuntest",
+  "name": "t3bun",
   "private": true,
   "scripts": {
     "build": "turbo run build",
