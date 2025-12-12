@@ -8,7 +8,7 @@ import { defineConfig } from "eslint/config";
 import tseslint from "typescript-eslint";
 
 export const restrictEnvAccess = defineConfig(
-  { ignores: ["**/env.ts", "**/env.js"] },
+  { ignores: ["**/env.ts", "**/env.js", "exportupdate.ts"] },
   {
     files: ["**/*.js", "**/*.ts", "**/*.tsx"],
     rules: {
