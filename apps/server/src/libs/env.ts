@@ -12,6 +12,8 @@ export const env = createEnv({
   server: {
     ...apiSchema,
     MONGODB_URI: z.string().min(12),
+    ALGOLIA_APP_ID: z.string(),
+    ALGOLIA_API_KEY: z.string(),
   },
   /**
    * What object holds the environment variables at runtime. This is usually

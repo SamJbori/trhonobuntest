@@ -2,6 +2,7 @@ import "bun";
 
 import type { Auth } from "@repo/api";
 import { trpcServer } from "@hono/trpc-server";
+import { algoliasearch } from "algoliasearch";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createMiddleware } from "hono/factory";
@@ -18,6 +19,8 @@ const getDBClientPromise = () => {
   DBClientPromise ??= new MongoClient(env.MONGODB_URI).connect();
   return DBClientPromise;
 };
+
+const searchClient = algoliasearch(env.ALGOLIA_APP_ID, env.ALGOLIA_API_KEY);
 
 const app = new Hono<{ Bindings: typeof env }>();
 
