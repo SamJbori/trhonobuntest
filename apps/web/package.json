@@ -30,6 +30,7 @@
     "@repo/api": "workspace:*",
     "@repo/eslint": "workspace:*",
     "@repo/prettier": "workspace:*",
+    "@repo/typescript": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@tanstack/react-query-devtools": "^5.91.1",
     "@types/bun": "latest",
