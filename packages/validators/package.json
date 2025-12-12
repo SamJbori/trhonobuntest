@@ -19,10 +19,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc",
+    "dev": "tsc --watch",
     "exports": "bun run exportupdate.ts",
     "format": "prettier --check . --ignore-path ../../.gitignore",
-    "dev": "tsc -p tsconfig.build.json --watch",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
     "typecheck": "tsc --noEmit"
   },

@@ -4,14 +4,12 @@
     /** Base Options */
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ESNext",
-    "lib": ["ESNext"],
+    "target": "ES2022",
+    "lib": ["ES2022"],
     "allowJs": true,
     "resolveJsonModule": true,
-    // "moduleDetection": "force",
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+    "isolatedModules": true,
 
     /** Keep TSC performant in monorepos */
     "incremental": true,
@@ -22,15 +20,11 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
-    "noImplicitOverride": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "allowImportingTsExtensions": true,
 
     /** Transpile using Bundler (not tsc) */
     "module": "Preserve",
     "moduleResolution": "Bundler",
     "noEmit": true
   },
-  "exclude": ["node_modules", "build", "dist", ".next", ".expo", ".cache"]
+  "exclude": ["node_modules", "build", "dist", ".next", ".expo"]
 }

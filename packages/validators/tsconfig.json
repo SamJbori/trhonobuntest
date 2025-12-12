@@ -1,5 +1,4 @@
 {
-  "extends": "@repo/typescript/base.json",
-  "include": ["src", "exportupdate.ts"],
-  "exclude": ["node_modules"]
+  "extends": "@repo/typescript/compile.json",
+  "include": ["src", "exportupdate.ts"]
 }
