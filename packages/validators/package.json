@@ -30,6 +30,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@repo/eslint": "workspace:*",
     "@repo/prettier": "workspace:*",
+    "@repo/typescript": "workspace:*",
     "@types/bun": "latest",
     "typescript": "5.9.2"
   },
