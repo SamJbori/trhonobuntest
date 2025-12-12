@@ -11,7 +11,7 @@ export const env = createEnv({
   },
   server: {
     ...apiSchema,
-    MONGODB_URI: z.url(),
+    MONGODB_URI: z.string().min(12),
   },
   /**
    * What object holds the environment variables at runtime. This is usually
