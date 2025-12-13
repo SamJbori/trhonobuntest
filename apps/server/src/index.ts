@@ -22,7 +22,13 @@ const getDBClientPromise = () => {
 
 const searchClient = algoliasearch(env.ALGOLIA_APP_ID, env.ALGOLIA_API_KEY);
 
-const app = new Hono<{ Bindings: typeof env }>();
+const app = new Hono<{
+  Bindings: typeof env;
+  Variables: {
+    auth: Auth;
+    dbClient: MongoClient;
+  };
+}>();
 
 app.use(logger());
 
@@ -45,12 +51,7 @@ app.use(
   }),
 );
 
-const middleware = createMiddleware<{
-  Variables: {
-    auth: Auth;
-    dbClient: MongoClient;
-  };
-}>(async (c, next) => {
+const middleware = createMiddleware(async (c, next) => {
   const DBClient = await getDBClientPromise();
   const auth = initAuth(DBClient);
   c.set("auth", auth);
