@@ -18,14 +18,19 @@
       "cache": false
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^typegen"],
+      "outputs": [".cache/.eslintcache"]
+    },
+    "typegen": {
+      "dependsOn": ["^typegen"],
+      "outputs": [".cache/tsgeninfo.json", "dist/**"]
     },
     "format": {
       "outputs": [".cache/.prettiercache"],
       "outputLogs": "new-only"
     },
     "typecheck": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^typegen"],
       "outputs": [".cache/tsbuildinfo.json"]
     }
   },
