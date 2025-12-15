@@ -2,7 +2,7 @@ import "bun";
 
 import type { Auth } from "@repo/api";
 import { trpcServer } from "@hono/trpc-server";
-import { algoliasearch } from "algoliasearch";
+import { searchClient as algoliasearch } from "algoliasearch";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createMiddleware } from "hono/factory";
