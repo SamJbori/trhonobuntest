@@ -8,8 +8,7 @@ import { env } from "./env";
 
 declare global {
   interface Window {
-    __TANSTACK_QUERY_CLIENT__: // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-      import("@tanstack/query-core").QueryClient | undefined;
+    __TANSTACK_QUERY_CLIENT__: QueryClient | undefined;
   }
 }
 

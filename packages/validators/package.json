@@ -32,11 +32,12 @@
     "@repo/eslint": "workspace:*",
     "@repo/prettier": "workspace:*",
     "@repo/typescript": "workspace:*",
-    "@types/bun": "latest",
+    "@types/bun": "1.3.3",
     "@types/node": "^22",
     "typescript": "5.9.2"
   },
   "peerDependencies": {
+    "bun": "1.3.3",
     "zod": "^4.1.13"
   },
   "prettier": "@repo/prettier/base"
